@@ -2,8 +2,9 @@ const URL_NEWS_API = "URLを張り付ける";
 
 // padidng は top right bottom left
 const CLASS_NEWS_ITEM_VIEW = "NewsItemView";
-const CLASS_NEWS_ICOM_VIEW = "NewsIconView";
 const CLASS_NEWS_IMG = "NewsImg";
+
+const COLOR_NEWS_ITEM_VIEW_ON_MOUSE = 'gray';
 
 window.addEventListener('load', function(){
   requestAjax(URL_NEWS_API, function(response){
@@ -15,30 +16,35 @@ window.addEventListener('load', function(){
   });
 });
 
-
+// コンテンツを作る
 function createNewsItem(document,article) {
   var div = document.createElement("div");
   div.setAttribute('class', CLASS_NEWS_ITEM_VIEW);
-
-  var childView = document.createElement("span");
-  childView.setAttribute('class', CLASS_NEWS_ICOM_VIEW);
+  
+  // マウスを乗せたら色を変える
+  div.onmouseover = function() {
+    div.style.backgroundColor = COLOR_NEWS_ITEM_VIEW_ON_MOUSE;
+  }
+  div.onmouseout = function() {
+    div.style.backgroundColor='';
+  }
   
   // サムネイル
   var img = document.createElement("img");
   img.setAttribute('class', CLASS_NEWS_IMG);
   img.src = article.urlToImage;
-  
-  childView.appendChild(img);
-
   div.appendChild(img);
-
-  var text = document.createElement("span");
-  text.innerHTML = article.title;
-  console.log(article.title)
-  div.appendChild(text);
+  
+  // テキスト
+  var a = document.createElement("a");
+  a.innerHTML = article.title;
+  a.href = article.url;
+  div.appendChild(a);
+  
   return div;
 }
 
+// 通信処理メソッド
 var requestAjax = function(endpoint, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){

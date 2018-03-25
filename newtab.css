@@ -1,26 +1,24 @@
 
 /**
- * タイトルView要素
+ * ベースのView
  */
 .NewsItemView {
-  height: 200px;
+  height: auto;
   width: 500px;
   padding: 3px;
   margin: 5px;
-  background: gray;
+  overflow: hidden;
 }
 
-.NewsIconView {
-  position:absolute;
-  height: 150px;
-  width: 150px;
-  background:red;
-  vertical-align: middle;
-}
-
+/**
+ * サムネイル
+ */
 .NewsImg {
-  width:150px;
+  width:100px;
+  float: left;
   max-height: 100%;
   max-width: 100%;
   vertical-align: middle;
+  display: inline;
+  padding: 0px 5px 0px 0px;
 }
